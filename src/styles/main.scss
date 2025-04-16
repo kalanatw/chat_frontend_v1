@@ -181,6 +181,53 @@ body {
     line-height: 1.4;
     word-wrap: break-word;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    // Markdown styles
+    p {
+      margin: 0 0 1em 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0.5em 0;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    code {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    pre {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 1em;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+
+      code {
+        background: none;
+        padding: 0;
+      }
+    }
+
+    ul, ol {
+      margin: 0.5em 0;
+      padding-left: 1.5em;
+    }
+
+    blockquote {
+      margin: 0.5em 0;
+      padding-left: 1em;
+      border-left: 3px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.7);
+    }
   }
 }
 
