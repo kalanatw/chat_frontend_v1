@@ -130,9 +130,10 @@ body {
   max-width: min(1200px, 100%);
   margin: 0 auto;
   width: 100%;
-  
+
   @media (max-width: map-get($breakpoints, 'sm')) {
     padding: 0.5rem;
+    padding-bottom: calc(70px + env(safe-area-inset-bottom)); // Mobile-only padding for message input
   }
 
   .toolbar {
@@ -167,9 +168,15 @@ body {
   border: 1px solid var(--border);
   margin-bottom: 1rem;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   
   // iOS momentum scrolling
   -webkit-overflow-scrolling: touch;
+
+  @media (max-width: map-get($breakpoints, 'sm')) {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .chat-window {
@@ -335,21 +342,23 @@ body {
 }
 
 .message-input {
-  position: sticky;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+  width: 100%;
   background: var(--surface);
   padding: 1rem;
   display: flex;
   gap: 0.75rem;
   align-items: flex-end;
   border-top: 1px solid var(--border);
-  padding-bottom: calc(1rem + #{$safe-area-inset-bottom});
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  z-index: 100;
   
   @media (max-width: map-get($breakpoints, 'sm')) {
     padding: 0.75rem;
-    padding-bottom: calc(0.75rem + #{$safe-area-inset-bottom});
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
   }
   
   textarea {
@@ -469,6 +478,45 @@ body {
       height: 40px;
       width: 40px;
     }
+  }
+}
+
+// Mobile message input styles
+@media (max-width: map-get($breakpoints, 'sm')) {
+  .message-input {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(0);
+    transition: transform 0.3s ease-out;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 0.75rem;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    z-index: 100;
+
+    &.message-input-hidden {
+      transform: translateY(100%);
+    }
+  }
+
+  .chat-session {
+    padding-bottom: calc(70px + env(safe-area-inset-bottom));
+  }
+}
+
+// Desktop styles (keep original positioning)
+@media (min-width: map-get($breakpoints, 'sm')) {
+  .message-input {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    border-top: none;
+    background: transparent;
+    padding: 1rem;
   }
 }
 

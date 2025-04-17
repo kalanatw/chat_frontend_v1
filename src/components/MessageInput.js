@@ -5,6 +5,8 @@ import { uploadDocument } from '../utils/uploadService';
 const MessageInput = ({ onSend, placeholder = "Type your message...", disabled, onDocumentUpload }) => {
   const [text, setText] = useState("");
   const [toast, setToast] = useState(null);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const textareaRef = useRef(null);
   const fileInputRef = useRef(null);
   const [isComposing, setIsComposing] = useState(false);
@@ -94,9 +96,32 @@ const MessageInput = ({ onSend, placeholder = "Type your message...", disabled, 
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerWidth > 576) return; // Only apply on mobile
+
+      const currentScrollY = window.scrollY;
+      const scrollingUp = currentScrollY < lastScrollY;
+      const nearBottom = window.innerHeight + currentScrollY >= document.documentElement.scrollHeight - 100;
+
+      setIsVisible(scrollingUp || nearBottom);
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
+  // Show input when focused
+  const handleInputFocus = () => {
+    if (window.innerWidth <= 576) {
+      setIsVisible(true);
+    }
+  };
+
   return (
     <>
-      <div className="message-input">
+      <div className={`message-input ${!isVisible ? 'message-input-hidden' : ''}`}>
         <textarea
           ref={textareaRef}
           rows={1}
@@ -104,6 +129,7 @@ const MessageInput = ({ onSend, placeholder = "Type your message...", disabled, 
           placeholder={placeholder}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
+          onFocus={handleInputFocus}
           disabled={disabled}
           onCompositionStart={() => setIsComposing(true)}
           onCompositionEnd={() => setIsComposing(false)}
