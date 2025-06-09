@@ -1,30 +1,30 @@
 {
-  "short_name": "AI Chat",
-  "name": "AI Chat Assistant",
+  "short_name": "AAS Support",
+  "name": "AAS Customer Support Center",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "AAS_Logo.jpeg",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/jpeg"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
+      "src": "AAS_Logo.jpeg",
+      "type": "image/jpeg",
       "sizes": "192x192",
       "purpose": "any maskable"
     },
     {
-      "src": "logo512.png",
-      "type": "image/png",
+      "src": "AAS_Logo.jpeg",
+      "type": "image/jpeg",
       "sizes": "512x512",
       "purpose": "any maskable"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#121212",
-  "background_color": "#121212",
+  "theme_color": "#2a74eb",
+  "background_color": "#fafbfc",
   "orientation": "portrait",
-  "categories": ["productivity", "utilities"],
+  "categories": ["productivity", "utilities", "business"],
   "prefer_related_applications": false
 }
